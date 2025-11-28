@@ -1,4 +1,4 @@
-import { getRandomNumber, getRandomArrayElement } from './helpers.js';
+import { getRandomNumber, getRandomArrayElement } from './util.js';
 
 const Id = {
   MIN: 1,
