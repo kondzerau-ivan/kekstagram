@@ -1,1 +1,3 @@
-import './data.js';
+import { renderPictures } from './picture-render.js';
+
+renderPictures();
