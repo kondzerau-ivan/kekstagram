@@ -1,14 +1,20 @@
 import { photos } from './data.js';
+// import { renderBigPicture } from './big-picture-render.js';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const picturesSection = document.querySelector('.pictures');
 
-const createPicture = ({ url, likes, comments }) => {
+const createPicture = (photo) => {
   const picture = pictureTemplate.cloneNode(true);
 
-  picture.querySelector('.picture__img').src = url;
-  picture.querySelector('.picture__likes').textContent = likes;
-  picture.querySelector('.picture__comments').textContent = comments.length;
+  picture.querySelector('.picture__img').src = photo.url;
+  picture.querySelector('.picture__likes').textContent = photo.likes;
+  picture.querySelector('.picture__comments').textContent = photo.comments.length;
+
+  // picture.addEventListner('click', (evt) => {
+  //   evt.preventDefalt();
+  //   renderBigPicture(photo);
+  // });
 
   return picture;
 };

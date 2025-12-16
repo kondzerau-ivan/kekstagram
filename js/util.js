@@ -13,4 +13,8 @@ const getRandomArrayElement = (array) => array[getRandomNumber(0, array.length -
 
 const validateStringLenght = (str, length) => str.length === length;
 
-export { getRandomNumber, validateStringLenght, getRandomArrayElement };
+const isEscEvent = (evt) => {
+  return evt.key === 'Escape' || evt.key === 'Esc';
+};
+
+export { getRandomNumber, validateStringLenght, getRandomArrayElement, isEscEvent };
