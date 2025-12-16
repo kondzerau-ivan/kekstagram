@@ -1,5 +1,5 @@
 import { photos } from './data.js';
-// import { renderBigPicture } from './big-picture-render.js';
+import { renderBigPicture } from './big-picture-render.js';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const picturesSection = document.querySelector('.pictures');
@@ -11,10 +11,10 @@ const createPicture = (photo) => {
   picture.querySelector('.picture__likes').textContent = photo.likes;
   picture.querySelector('.picture__comments').textContent = photo.comments.length;
 
-  // picture.addEventListner('click', (evt) => {
-  //   evt.preventDefalt();
-  //   renderBigPicture(photo);
-  // });
+  picture.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    renderBigPicture(photo);
+  });
 
   return picture;
 };
