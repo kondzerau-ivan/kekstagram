@@ -8,6 +8,7 @@ const commentsLoader = bigPicture.querySelector('.comments-loader');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img > img');
 const likesCount = bigPicture.querySelector('.likes-count');
 const commentsCount = bigPicture.querySelector('.comments-count');
+const sociaComments = bigPicture.querySelector('.social__comments');
 const socialCaption = bigPicture.querySelector('.social__caption');
 
 const handleBigPictureEscKeydown = (evt) => {
@@ -32,8 +33,27 @@ const closeBigPicture = () => {
   sociaCommentCount.classList.remove('hidden');
   commentsLoader.classList.remove('hidden');
   body.classList.remove('modal-open');
+  sociaComments.innerHTML = '';
 
   document.removeEventListener('keydown', handleBigPictureEscKeydown);
+};
+
+const createComment = ({ avatar, message, name }) => `
+  <li class="social__comment">
+    <img
+      class="social__picture"
+      src="${avatar}"
+      alt="${name}"
+      width="35" height="35">
+    <p class="social__text">${message}</p>
+  </li>
+`;
+
+const renderComments = (comments) => {
+  comments.forEach((comment) => {
+    sociaComments.insertAdjacentHTML('beforeend', createComment(comment));
+  })
+  console.log(comments.length);
 };
 
 const renderBigPicture = ({ url, likes, comments, description }) => {
@@ -41,6 +61,7 @@ const renderBigPicture = ({ url, likes, comments, description }) => {
   likesCount.textContent = likes;
   commentsCount.textContent = comments.length;
   socialCaption.textContent = description;
+  renderComments(comments);
 
   openBigPicture();
 };
