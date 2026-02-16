@@ -11,10 +11,10 @@ const getRandomNumber = (min, max) => {
 
 const getRandomArrayElement = (array) => array[getRandomNumber(0, array.length - 1)];
 
-const validateStringLenght = (str, length) => str.length === length;
+const validateStringLength = (str, length) => str.length === length;
 
 const isEscEvent = (evt) => {
   return evt.key === 'Escape' || evt.key === 'Esc';
 };
 
-export { getRandomNumber, validateStringLenght, getRandomArrayElement, isEscEvent };
+export { getRandomNumber, validateStringLength, getRandomArrayElement, isEscEvent };
