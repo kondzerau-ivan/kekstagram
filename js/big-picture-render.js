@@ -25,7 +25,7 @@ const openBigPicture = () => {
   body.classList.add('modal-open');
 
   document.addEventListener('keydown', handleBigPictureEscKeydown);
-  bigPictureCancel.addEventListener('click', () => closeBigPicture());
+  bigPictureCancel.addEventListener('click', closeBigPicture);
 };
 
 const closeBigPicture = () => {
@@ -53,7 +53,6 @@ const renderComments = (comments) => {
   comments.forEach((comment) => {
     sociaComments.insertAdjacentHTML('beforeend', createComment(comment));
   })
-  console.log(comments.length);
 };
 
 const renderBigPicture = ({ url, likes, comments, description }) => {
