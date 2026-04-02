@@ -13,6 +13,7 @@ const IMAGE_SCALE = {
   'max': 100,
   'step': 25
 };
+const effects = imageOverlay.querySelector('.effects');
 let scaleControlValue = parseInt(scaleControl.value.substring(0, 3));
 
 const handleImageOverlayEscKeydown = (evt) => {
@@ -40,18 +41,14 @@ const handleScaleControlBigger = () => {
 
 const handleScaleControlValueChange = () => {
   imageUploadPreview.style.transform = `scale(${scaleControlValue / 100})`;
-}
+};
 
-inputFile.addEventListener('change', () => {
-  imageOverlay.classList.remove('hidden');
-  body.classList.add('modal-open');
-
-  document.addEventListener('keydown', handleImageOverlayEscKeydown);
-  uploadCancel.addEventListener('click', closeImageOverlay);
-  scaleControlSmaller.addEventListener('click', handleScaleControlSmaller);
-  scaleControlBigger.addEventListener('click', handleScaleControlBigger);
-  scaleControl.addEventListener('change', handleScaleControlValueChange);
-});
+const handleEffectChange = (event) => {
+  if (event.target.matches('.effects__radio')) {
+    imageUploadPreview.classList = '';
+    imageUploadPreview.classList.add(`effects__preview--${event.target.value}`)
+  }
+};
 
 const closeImageOverlay = () => {
   imageOverlay.classList.add('hidden');
@@ -64,3 +61,15 @@ const closeImageOverlay = () => {
   scaleControlBigger.removeEventListener('click', handleScaleControlBigger);
   scaleControl.removeEventListener('change', handleScaleControlValueChange);
 };
+
+inputFile.addEventListener('change', () => {
+  imageOverlay.classList.remove('hidden');
+  body.classList.add('modal-open');
+
+  document.addEventListener('keydown', handleImageOverlayEscKeydown);
+  uploadCancel.addEventListener('click', closeImageOverlay);
+  scaleControlSmaller.addEventListener('click', handleScaleControlSmaller);
+  scaleControlBigger.addEventListener('click', handleScaleControlBigger);
+  scaleControl.addEventListener('change', handleScaleControlValueChange);
+  effects.addEventListener('change', handleEffectChange);
+});
