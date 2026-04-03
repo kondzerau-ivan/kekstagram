@@ -1,4 +1,5 @@
 import { isEscEvent } from './util.js';
+import { initSlider } from './nouislider-init.js';
 
 const body = document.querySelector('body');
 const imageOverlay = document.querySelector('.img-upload__overlay');
@@ -46,7 +47,9 @@ const handleScaleControlValueChange = () => {
 const handleEffectChange = (event) => {
   if (event.target.matches('.effects__radio')) {
     imageUploadPreview.classList = '';
-    imageUploadPreview.classList.add(`effects__preview--${event.target.value}`)
+    imageUploadPreview.classList.add(`effects__preview--${event.target.value}`);
+
+    initSlider(event);
   }
 };
 
@@ -60,6 +63,7 @@ const closeImageOverlay = () => {
   scaleControlSmaller.removeEventListener('click', handleScaleControlSmaller);
   scaleControlBigger.removeEventListener('click', handleScaleControlBigger);
   scaleControl.removeEventListener('change', handleScaleControlValueChange);
+  effects.removeEventListener('change', handleEffectChange);
 };
 
 inputFile.addEventListener('change', () => {
