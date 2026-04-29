@@ -1,6 +1,7 @@
 import { isEscEvent } from './util.js';
-import { initSlider } from './nouislider-init.js';
+import { initSlider, resetSlider } from './nouislider-init.js';
 
+const DEFAULT_SCALE = 100;
 const body = document.querySelector('body');
 const imageOverlay = document.querySelector('.img-upload__overlay');
 const imageUploadPreview = imageOverlay.querySelector('.img-upload__preview img');
@@ -15,7 +16,8 @@ const IMAGE_SCALE = {
   'step': 25
 };
 const effects = imageOverlay.querySelector('.effects');
-let scaleControlValue = parseInt(scaleControl.value.substring(0, 3));
+let scaleControlValue = parseInt(scaleControl.value.replace('%', ''));
+let isOverlayOpen = false;
 
 const handleImageOverlayEscKeydown = (evt) => {
   if (isEscEvent(evt)) {
@@ -46,7 +48,7 @@ const handleScaleControlValueChange = () => {
 
 const handleEffectChange = (event) => {
   if (event.target.matches('.effects__radio')) {
-    imageUploadPreview.classList = '';
+    imageUploadPreview.className = '';
     imageUploadPreview.classList.add(`effects__preview--${event.target.value}`);
 
     initSlider(event);
@@ -54,9 +56,15 @@ const handleEffectChange = (event) => {
 };
 
 const closeImageOverlay = () => {
+  isOverlayOpen = false;
+  resetSlider();
   imageOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
   inputFile.value = '';
+  scaleControlValue = DEFAULT_SCALE;
+  scaleControl.value = `${DEFAULT_SCALE}%`;
+  imageUploadPreview.className = '';
+  imageUploadPreview.style = '';
 
   document.removeEventListener('keydown', handleImageOverlayEscKeydown);
   uploadCancel.removeEventListener('click', closeImageOverlay);
@@ -67,6 +75,8 @@ const closeImageOverlay = () => {
 };
 
 inputFile.addEventListener('change', () => {
+  if (isOverlayOpen) return;
+  isOverlayOpen = true;
   imageOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
 
